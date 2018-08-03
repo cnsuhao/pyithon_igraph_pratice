@@ -1,0 +1,758 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "# 导入igraph包\n",
+    "from igraph import *"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "# 生成3个节点的完全图\n",
+    "g = Graph.Full(3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "# 图的名字\n",
+    "g[\"name\"] = \"Triangle graph\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'Triangle graph'"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "g[\"name\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "# 给节点添加属性name，每个名字取名\n",
+    "g.vs[\"name\"] = [\"A\", \"B\", \"C\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "1"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 1号节点到2号节点的边权值，无权图用0/1\n",
+    "g[1, 2]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "1"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# name是A的节点到name是B的节点的边权值，无权图用0/1\n",
+    "g[\"A\", \"B\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "# 设置权值，无权图设置为0，则说明\"A\"，\"B\"不通，则少了一边\n",
+    "g[\"A\", \"B\"] = 0"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "2"
+      ]
+     },
+     "execution_count": 23,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 边的数量\n",
+    "g.ecount()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "False"
+      ]
+     },
+     "execution_count": 28,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 判断是否是有权图\n",
+    "g.is_weighted()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "# 设置边的权值，全部边权值都是1.0\n",
+    "g.es[\"weight\"] = 1.0"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "# 设置边的权值\n",
+    "g[\"A\", \"B\"] = 2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "1.0"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 查看边的权值\n",
+    "g[\"A\", \"B\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[1.0, 1.0, 1.0]"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 查看边的权值\n",
+    "g.es[\"weight\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Help on VertexSeq in module igraph object:\n",
+      "\n",
+      "class VertexSeq(igraph.core.VertexSeq)\n",
+      " |  Class representing a sequence of vertices in the graph.\n",
+      " |  \n",
+      " |  This class is most easily accessed by the C{vs} field of the\n",
+      " |  L{Graph} object, which returns an ordered sequence of all vertices in\n",
+      " |  the graph. The vertex sequence can be refined by invoking the\n",
+      " |  L{VertexSeq.select()} method. L{VertexSeq.select()} can also be\n",
+      " |  accessed by simply calling the L{VertexSeq} object.\n",
+      " |  \n",
+      " |  An alternative way to create a vertex sequence referring to a given\n",
+      " |  graph is to use the constructor directly:\n",
+      " |  \n",
+      " |    >>> g = Graph.Full(3)\n",
+      " |    >>> vs = VertexSeq(g)\n",
+      " |    >>> restricted_vs = VertexSeq(g, [0, 1])\n",
+      " |  \n",
+      " |  The individual vertices can be accessed by indexing the vertex sequence\n",
+      " |  object. It can be used as an iterable as well, or even in a list\n",
+      " |  comprehension:\n",
+      " |  \n",
+      " |    >>> g=Graph.Full(3)\n",
+      " |    >>> for v in g.vs:\n",
+      " |    ...   v[\"value\"] = v.index ** 2\n",
+      " |    ... \n",
+      " |    >>> [v[\"value\"] ** 0.5 for v in g.vs]\n",
+      " |    [0.0, 1.0, 2.0]\n",
+      " |  \n",
+      " |  The vertex set can also be used as a dictionary where the keys are the\n",
+      " |  attribute names. The values corresponding to the keys are the values\n",
+      " |  of the given attribute for every vertex selected by the sequence.\n",
+      " |  \n",
+      " |    >>> g=Graph.Full(3)\n",
+      " |    >>> for idx, v in enumerate(g.vs):\n",
+      " |    ...   v[\"weight\"] = idx*(idx+1)\n",
+      " |    ... \n",
+      " |    >>> g.vs[\"weight\"]\n",
+      " |    [0, 2, 6]\n",
+      " |    >>> g.vs.select(1,2)[\"weight\"] = [10, 20]\n",
+      " |    >>> g.vs[\"weight\"]\n",
+      " |    [0, 10, 20]\n",
+      " |  \n",
+      " |  If you specify a sequence that is shorter than the number of vertices in\n",
+      " |  the VertexSeq, the sequence is reused:\n",
+      " |  \n",
+      " |    >>> g = Graph.Tree(7, 2)\n",
+      " |    >>> g.vs[\"color\"] = [\"red\", \"green\"]\n",
+      " |    >>> g.vs[\"color\"]\n",
+      " |    ['red', 'green', 'red', 'green', 'red', 'green', 'red']\n",
+      " |  \n",
+      " |  You can even pass a single string or integer, it will be considered as a\n",
+      " |  sequence of length 1:\n",
+      " |  \n",
+      " |    >>> g.vs[\"color\"] = \"red\"\n",
+      " |    >>> g.vs[\"color\"]\n",
+      " |    ['red', 'red', 'red', 'red', 'red', 'red', 'red']\n",
+      " |  \n",
+      " |  Some methods of the vertex sequences are simply proxy methods to the\n",
+      " |  corresponding methods in the L{Graph} object. One such example is\n",
+      " |  L{VertexSeq.degree()}:\n",
+      " |  \n",
+      " |    >>> g=Graph.Tree(7, 2)\n",
+      " |    >>> g.vs.degree()\n",
+      " |    [2, 3, 3, 1, 1, 1, 1]\n",
+      " |    >>> g.vs.degree() == g.degree()\n",
+      " |    True\n",
+      " |  \n",
+      " |  Method resolution order:\n",
+      " |      VertexSeq\n",
+      " |      igraph.core.VertexSeq\n",
+      " |      builtins.object\n",
+      " |  \n",
+      " |  Methods defined here:\n",
+      " |  \n",
+      " |  __call__(self, *args, **kwds)\n",
+      " |      Shorthand notation to select()\n",
+      " |      \n",
+      " |      This method simply passes all its arguments to L{VertexSeq.select()}.\n",
+      " |  \n",
+      " |  attributes(self)\n",
+      " |      Returns the list of all the vertex attributes in the graph\n",
+      " |      associated to this vertex sequence.\n",
+      " |  \n",
+      " |  betweenness(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.betweenness()}\n",
+      " |      \n",
+      " |      This method calls the C{betweenness()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.betweenness() for details.\n",
+      " |  \n",
+      " |  bibcoupling(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.bibcoupling()}\n",
+      " |      \n",
+      " |      This method calls the C{bibcoupling()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.bibcoupling() for details.\n",
+      " |  \n",
+      " |  closeness(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.closeness()}\n",
+      " |      \n",
+      " |      This method calls the C{closeness()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.closeness() for details.\n",
+      " |  \n",
+      " |  cocitation(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.cocitation()}\n",
+      " |      \n",
+      " |      This method calls the C{cocitation()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.cocitation() for details.\n",
+      " |  \n",
+      " |  constraint(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.constraint()}\n",
+      " |      \n",
+      " |      This method calls the C{constraint()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.constraint() for details.\n",
+      " |  \n",
+      " |  degree(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.degree()}\n",
+      " |      \n",
+      " |      This method calls the C{degree()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.degree() for details.\n",
+      " |  \n",
+      " |  delete = delete_vertices(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.delete_vertices()}\n",
+      " |      \n",
+      " |      This method calls the C{delete_vertices()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.delete_vertices() for details.\n",
+      " |  \n",
+      " |  diversity(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.diversity()}\n",
+      " |      \n",
+      " |      This method calls the C{diversity()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.diversity() for details.\n",
+      " |  \n",
+      " |  eccentricity(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.eccentricity()}\n",
+      " |      \n",
+      " |      This method calls the C{eccentricity()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.eccentricity() for details.\n",
+      " |  \n",
+      " |  find(self, *args, **kwds)\n",
+      " |      Returns the first vertex of the vertex sequence that matches some\n",
+      " |      criteria.\n",
+      " |      \n",
+      " |      The selection criteria are equal to the ones allowed by L{VertexSeq.select}.\n",
+      " |      See L{VertexSeq.select} for more details.\n",
+      " |      \n",
+      " |      For instance, to find the first vertex with name C{foo} in graph C{g}:\n",
+      " |      \n",
+      " |          >>> g.vs.find(name=\"foo\")            #doctest:+SKIP\n",
+      " |      \n",
+      " |      To find an arbitrary isolated vertex:\n",
+      " |      \n",
+      " |          >>> g.vs.find(_degree=0)             #doctest:+SKIP\n",
+      " |  \n",
+      " |  get_shortest_paths(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.get_shortest_paths()}\n",
+      " |      \n",
+      " |      This method calls the C{get_shortest_paths()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.get_shortest_paths() for details.\n",
+      " |  \n",
+      " |  indegree(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.indegree()}\n",
+      " |      \n",
+      " |      This method calls the C{indegree()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.indegree() for details.\n",
+      " |  \n",
+      " |  is_minimal_separator(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.is_minimal_separator()}\n",
+      " |      \n",
+      " |      This method calls the C{is_minimal_separator()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.is_minimal_separator() for details.\n",
+      " |  \n",
+      " |  is_separator(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.is_separator()}\n",
+      " |      \n",
+      " |      This method calls the C{is_separator()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.is_separator() for details.\n",
+      " |  \n",
+      " |  isoclass(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.isoclass()}\n",
+      " |      \n",
+      " |      This method calls the C{isoclass()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.isoclass() for details.\n",
+      " |  \n",
+      " |  maxdegree(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.maxdegree()}\n",
+      " |      \n",
+      " |      This method calls the C{maxdegree()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.maxdegree() for details.\n",
+      " |  \n",
+      " |  outdegree(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.outdegree()}\n",
+      " |      \n",
+      " |      This method calls the C{outdegree()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.outdegree() for details.\n",
+      " |  \n",
+      " |  pagerank(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.pagerank()}\n",
+      " |      \n",
+      " |      This method calls the C{pagerank()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.pagerank() for details.\n",
+      " |  \n",
+      " |  personalized_pagerank(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.personalized_pagerank()}\n",
+      " |      \n",
+      " |      This method calls the C{personalized_pagerank()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.personalized_pagerank() for details.\n",
+      " |  \n",
+      " |  select(self, *args, **kwds)\n",
+      " |      Selects a subset of the vertex sequence based on some criteria\n",
+      " |      \n",
+      " |      The selection criteria can be specified by the positional and the keyword\n",
+      " |      arguments. Positional arguments are always processed before keyword\n",
+      " |      arguments.\n",
+      " |      \n",
+      " |        - If the first positional argument is C{None}, an empty sequence is\n",
+      " |          returned.\n",
+      " |      \n",
+      " |        - If the first positional argument is a callable object, the object\n",
+      " |          will be called for every vertex in the sequence. If it returns\n",
+      " |          C{True}, the vertex will be included, otherwise it will\n",
+      " |          be excluded.\n",
+      " |      \n",
+      " |        - If the first positional argument is an iterable, it must return\n",
+      " |          integers and they will be considered as indices of the current\n",
+      " |          vertex set (NOT the whole vertex set of the graph -- the\n",
+      " |          difference matters when one filters a vertex set that has\n",
+      " |          already been filtered by a previous invocation of\n",
+      " |          L{VertexSeq.select()}. In this case, the indices do not refer\n",
+      " |          directly to the vertices of the graph but to the elements of\n",
+      " |          the filtered vertex sequence.\n",
+      " |      \n",
+      " |        - If the first positional argument is an integer, all remaining\n",
+      " |          arguments are expected to be integers. They are considered as\n",
+      " |          indices of the current vertex set again.\n",
+      " |      \n",
+      " |      Keyword arguments can be used to filter the vertices based on their\n",
+      " |      attributes. The name of the keyword specifies the name of the attribute\n",
+      " |      and the filtering operator, they should be concatenated by an\n",
+      " |      underscore (C{_}) character. Attribute names can also contain\n",
+      " |      underscores, but operator names don't, so the operator is always the\n",
+      " |      largest trailing substring of the keyword name that does not contain\n",
+      " |      an underscore. Possible operators are:\n",
+      " |      \n",
+      " |        - C{eq}: equal to\n",
+      " |      \n",
+      " |        - C{ne}: not equal to\n",
+      " |      \n",
+      " |        - C{lt}: less than\n",
+      " |      \n",
+      " |        - C{gt}: greater than\n",
+      " |      \n",
+      " |        - C{le}: less than or equal to\n",
+      " |      \n",
+      " |        - C{ge}: greater than or equal to\n",
+      " |      \n",
+      " |        - C{in}: checks if the value of an attribute is in a given list\n",
+      " |      \n",
+      " |        - C{notin}: checks if the value of an attribute is not in a given\n",
+      " |          list\n",
+      " |      \n",
+      " |      For instance, if you want to filter vertices with a numeric C{age}\n",
+      " |      property larger than 200, you have to write:\n",
+      " |      \n",
+      " |        >>> g.vs.select(age_gt=200)                   #doctest: +SKIP\n",
+      " |      \n",
+      " |      Similarly, to filter vertices whose C{type} is in a list of predefined\n",
+      " |      types:\n",
+      " |      \n",
+      " |        >>> list_of_types = [\"HR\", \"Finance\", \"Management\"]\n",
+      " |        >>> g.vs.select(type_in=list_of_types)        #doctest: +SKIP\n",
+      " |      \n",
+      " |      If the operator is omitted, it defaults to C{eq}. For instance, the\n",
+      " |      following selector selects vertices whose C{cluster} property equals\n",
+      " |      to 2:\n",
+      " |      \n",
+      " |        >>> g.vs.select(cluster=2)                    #doctest: +SKIP\n",
+      " |      \n",
+      " |      In the case of an unknown operator, it is assumed that the\n",
+      " |      recognized operator is part of the attribute name and the actual\n",
+      " |      operator is C{eq}.\n",
+      " |      \n",
+      " |      Attribute names inferred from keyword arguments are treated specially\n",
+      " |      if they start with an underscore (C{_}). These are not real attributes\n",
+      " |      but refer to specific properties of the vertices, e.g., its degree.\n",
+      " |      The rule is as follows: if an attribute name starts with an underscore,\n",
+      " |      the rest of the name is interpreted as a method of the L{Graph} object.\n",
+      " |      This method is called with the vertex sequence as its first argument\n",
+      " |      (all others left at default values) and vertices are filtered\n",
+      " |      according to the value returned by the method. For instance, if you\n",
+      " |      want to exclude isolated vertices:\n",
+      " |      \n",
+      " |        >>> g = Graph.Famous(\"zachary\")\n",
+      " |        >>> non_isolated = g.vs.select(_degree_gt=0)\n",
+      " |      \n",
+      " |      For properties that take a long time to be computed (e.g., betweenness\n",
+      " |      centrality for large graphs), it is advised to calculate the values\n",
+      " |      in advance and store it in a graph attribute. The same applies when\n",
+      " |      you are selecting based on the same property more than once in the\n",
+      " |      same C{select()} call to avoid calculating it twice unnecessarily.\n",
+      " |      For instance, the following would calculate betweenness centralities\n",
+      " |      twice:\n",
+      " |      \n",
+      " |        >>> edges = g.vs.select(_betweenness_gt=10, _betweenness_lt=30)\n",
+      " |      \n",
+      " |      It is advised to use this instead:\n",
+      " |      \n",
+      " |        >>> g.vs[\"bs\"] = g.betweenness()\n",
+      " |        >>> edges = g.vs.select(bs_gt=10, bs_lt=30)\n",
+      " |      \n",
+      " |      @return: the new, filtered vertex sequence\n",
+      " |  \n",
+      " |  shortest_paths(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.shortest_paths()}\n",
+      " |      \n",
+      " |      This method calls the C{shortest_paths()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.shortest_paths() for details.\n",
+      " |  \n",
+      " |  similarity_dice(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.similarity_dice()}\n",
+      " |      \n",
+      " |      This method calls the C{similarity_dice()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.similarity_dice() for details.\n",
+      " |  \n",
+      " |  similarity_jaccard(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.similarity_jaccard()}\n",
+      " |      \n",
+      " |      This method calls the C{similarity_jaccard()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.similarity_jaccard() for details.\n",
+      " |  \n",
+      " |  subgraph(*args, **kwds)\n",
+      " |      Proxy method to L{Graph.subgraph()}\n",
+      " |      \n",
+      " |      This method calls the C{subgraph()} method of the L{Graph} class\n",
+      " |      restricted to this sequence, and returns the result.\n",
+      " |      \n",
+      " |      @see: Graph.subgraph() for details.\n",
+      " |  \n",
+      " |  ----------------------------------------------------------------------\n",
+      " |  Data descriptors defined here:\n",
+      " |  \n",
+      " |  __dict__\n",
+      " |      dictionary for instance variables (if defined)\n",
+      " |  \n",
+      " |  ----------------------------------------------------------------------\n",
+      " |  Methods inherited from igraph.core.VertexSeq:\n",
+      " |  \n",
+      " |  __delitem__(self, key, /)\n",
+      " |      Delete self[key].\n",
+      " |  \n",
+      " |  __getitem__(self, key, /)\n",
+      " |      Return self[key].\n",
+      " |  \n",
+      " |  __init__(self, /, *args, **kwargs)\n",
+      " |      Initialize self.  See help(type(self)) for accurate signature.\n",
+      " |  \n",
+      " |  __len__(self, /)\n",
+      " |      Return len(self).\n",
+      " |  \n",
+      " |  __new__(*args, **kwargs) from builtins.type\n",
+      " |      Create and return a new object.  See help(type) for accurate signature.\n",
+      " |  \n",
+      " |  __setitem__(self, key, value, /)\n",
+      " |      Set self[key] to value.\n",
+      " |  \n",
+      " |  attribute_names(...)\n",
+      " |      attribute_names() -> list\n",
+      " |      \n",
+      " |      Returns the attribute name list of the graph's vertices\n",
+      " |  \n",
+      " |  get_attribute_values(...)\n",
+      " |      get_attribute_values(attrname) -> list\n",
+      " |      Returns the value of a given vertex attribute for all vertices in a list.\n",
+      " |      \n",
+      " |      The values stored in the list are exactly the same objects that are stored\n",
+      " |      in the vertex attribute, meaning that in the case of mutable objects,\n",
+      " |      the modification of the list element does affect the attribute stored in\n",
+      " |      the vertex. In the case of immutable objects, modification of the list\n",
+      " |      does not affect the attribute values.\n",
+      " |      \n",
+      " |      @param attrname: the name of the attribute\n",
+      " |  \n",
+      " |  set_attribute_values(...)\n",
+      " |      set_attribute_values(attrname, values) -> list\n",
+      " |      Sets the value of a given vertex attribute for all vertices\n",
+      " |      \n",
+      " |      @param attrname: the name of the attribute\n",
+      " |      @param values: the new attribute values in a list\n",
+      " |  \n",
+      " |  ----------------------------------------------------------------------\n",
+      " |  Data descriptors inherited from igraph.core.VertexSeq:\n",
+      " |  \n",
+      " |  graph\n",
+      " |      The graph the vertex sequence belongs to\n",
+      " |  \n",
+      " |  indices\n",
+      " |      The vertex indices in this vertex sequence\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "help(g.vs())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Help on built-in function Full:\n",
+      "\n",
+      "Full(...) method of builtins.type instance\n",
+      "    Full(n, directed=False, loops=False)\n",
+      "    \n",
+      "    Generates a full graph (directed or undirected, with or without loops).\n",
+      "    \n",
+      "    @param n: the number of vertices.\n",
+      "    @param directed: whether to generate a directed graph.\n",
+      "    @param loops: whether self-loops are allowed.\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "help(Graph.Full)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.4.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
